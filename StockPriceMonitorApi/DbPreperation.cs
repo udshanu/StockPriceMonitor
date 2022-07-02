@@ -39,7 +39,30 @@ namespace StockPriceMonitor.Api
             }
             else
             {
-                Console.WriteLine("--> Already have data.");
+                Console.WriteLine("--> Already have price source data.");
+            }
+
+            if (!context.Tickers.Any())
+            {
+                Console.WriteLine("--> Seeding data.");
+
+                var currentDate = DateTime.Now;
+
+                context.Tickers.AddRange(
+                        new Ticker() { Id = 1, TickerName = "Ticker 1", PriceSourceId = 4, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new Ticker() { Id = 2, TickerName = "Ticker 2", PriceSourceId = 4, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new Ticker() { Id = 3, TickerName = "Ticker 3", PriceSourceId = 5, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new Ticker() { Id = 4, TickerName = "Ticker 4", PriceSourceId = 5, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new Ticker() { Id = 5, TickerName = "Ticker 5", PriceSourceId = 6, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new Ticker() { Id = 6, TickerName = "Ticker 6", PriceSourceId = 6, IsDeleted = false, CreatedBy = "System", DateCreated = currentDate }
+
+                    );
+
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("--> Already have ticker data.");
             }
         }
     }

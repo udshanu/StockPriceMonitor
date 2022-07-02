@@ -33,7 +33,10 @@ namespace StockPriceMonitorApi
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("StockPriceInMemory"));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPriceSourceRepository, PriceSourceRepository>();
+            services.AddScoped<ITickerRepository, TickerRepository>();
+
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

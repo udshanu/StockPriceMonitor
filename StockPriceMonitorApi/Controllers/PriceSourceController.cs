@@ -17,11 +17,13 @@ namespace StockPriceMonitor.Api.Controllers
     {
         private IPriceSourceRepository _priceSourceRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PriceSourceController(IPriceSourceRepository priceSourceRepo, IMapper mapper)
+        public PriceSourceController(IPriceSourceRepository priceSourceRepo, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _priceSourceRepo = priceSourceRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -69,8 +71,11 @@ namespace StockPriceMonitor.Api.Controllers
             try
             {
                 var priceSourceModel = _mapper.Map<PriceSource>(priceSourceRequestDto);
+                priceSourceModel.CreatedBy = "System";
+                priceSourceModel.DateCreated = DateTime.Now;
+
                 _priceSourceRepo.CreatePriceSource(priceSourceModel);
-                _priceSourceRepo.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 var priceSourceResponseDto = _mapper.Map<PriceSourceResponseDTO>(priceSourceModel);
 
