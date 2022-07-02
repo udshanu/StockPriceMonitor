@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StockPriceMonitor.Api;
 using StockPriceMonitor.Entities.Models.DataContext;
 using StockPriceMonitor.Repository;
 using StockPriceMonitor.Repository.Interfaces;
@@ -61,6 +62,8 @@ namespace StockPriceMonitorApi
             {
                 endpoints.MapControllers();
             });
+
+            DbPreperation.PreperationPopulation(app);
         }
     }
 }
