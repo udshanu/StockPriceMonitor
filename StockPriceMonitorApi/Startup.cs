@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using StockPriceMonitor.Entities.Models.DataContext;
+using StockPriceMonitor.Repository;
+using StockPriceMonitor.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,8 @@ namespace StockPriceMonitorApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("StockPriceInMemory"));
+
+            services.AddScoped<IPriceSourceRepository, PriceSourceRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj" />
+    <ProjectReference Include="..\StockPriceMonitor.Repository\StockPriceMonitor.Repository.csproj" />
   </ItemGroup>
 
 </Project>
