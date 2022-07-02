@@ -54,6 +54,23 @@ namespace StockPriceMonitor.Repository
         }
 
         /// <summary>
+        /// Get price source using id.
+        /// </summary>
+        /// <param name="Id">Price source id</param>
+        /// <returns>Price source object</returns>
+        public PriceSource GetPriceSourceById(int Id)
+        {
+            try
+            {
+                return _context.PriceSources.FirstOrDefault(x => x.Id == Id);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Exception on GetPriceSourceById functionality. {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Save changes to the database.
         /// </summary>
         /// <returns>true or false valeu</returns>
