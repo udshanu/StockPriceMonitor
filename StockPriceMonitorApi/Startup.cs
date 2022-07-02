@@ -36,6 +36,7 @@ namespace StockPriceMonitorApi
             services.AddScoped<IPriceSourceRepository, PriceSourceRepository>();
 
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StockPriceMonitorApi", Version = "v1" });

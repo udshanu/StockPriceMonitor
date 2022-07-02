@@ -3,9 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Entities.Models.DataContext;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockPriceMonitor.Api
 {
@@ -30,7 +28,11 @@ namespace StockPriceMonitor.Api
                 context.PriceSources.AddRange(
                         new PriceSource() { Id = 1, Name = "Source 1", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
                         new PriceSource() { Id = 2, Name = "Source 2", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
-                        new PriceSource() { Id = 3, Name = "Source 3", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate }
+                        new PriceSource() { Id = 3, Name = "Source 3", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new PriceSource() { Id = 4, Name = "Source 4", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new PriceSource() { Id = 5, Name = "Source 5", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new PriceSource() { Id = 6, Name = "Source 6", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate },
+                        new PriceSource() { Id = 7, Name = "Source 7", IsDeleted = false, CreatedBy = "System", DateCreated = currentDate, UpdatedBy = "System 2", DateLastUpdated = currentDate }
                     );
 
                 context.SaveChanges();

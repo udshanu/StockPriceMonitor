@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -14,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StockPriceMonitor.Common\StockPriceMonitor.Common.csproj" />
     <ProjectReference Include="..\StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj" />
     <ProjectReference Include="..\StockPriceMonitor.Repository\StockPriceMonitor.Repository.csproj" />
   </ItemGroup>
