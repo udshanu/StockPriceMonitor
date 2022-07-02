@@ -13,4 +13,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
