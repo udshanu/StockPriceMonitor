@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Api", "StockPriceMonitorApi\StockPriceMonitor.Api.csproj", "{46A06AA4-7922-436E-9374-307A7A7D2F9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Api", "StockPriceMonitorApi\StockPriceMonitor.Api.csproj", "{46A06AA4-7922-436E-9374-307A7A7D2F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Web", "StockPriceMonitor.Web\StockPriceMonitor.Web.csproj", "{1BE72297-F6F9-4F09-8602-B0E7D7539192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Web", "StockPriceMonitor.Web\StockPriceMonitor.Web.csproj", "{1BE72297-F6F9-4F09-8602-B0E7D7539192}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Entities", "StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj", "{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1BE72297-F6F9-4F09-8602-B0E7D7539192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BE72297-F6F9-4F09-8602-B0E7D7539192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BE72297-F6F9-4F09-8602-B0E7D7539192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
