@@ -1,7 +1,7 @@
 ﻿@page
 
-<div class="text-center" ng-app="stockModule">
-    <div ng-controller="stockController" ng-cloak>
+<div class="text-center" ng-app="StockModule">
+    <div ng-controller="StockController" ng-cloak ng-init="GetAllPriceSources()">
         <h1 class="display-4">Stock Price Monitor</h1>
 
         <div style="align-content:center">
@@ -105,5 +105,6 @@
 </style>
 
 @section Scripts{
+    <script src="~/js/app/services/stock.factory.js"></script>
     <script src="~/js/app/controllers/stock.controller.js"></script>
 }

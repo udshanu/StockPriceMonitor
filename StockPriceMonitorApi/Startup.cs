@@ -31,6 +31,7 @@ namespace StockPriceMonitorApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("StockPriceInMemory"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -56,6 +57,11 @@ namespace StockPriceMonitorApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StockPriceMonitorApi v1"));
             }
+
+            // Make sure you call this before calling app.UseMvc()
+            app.UseCors(
+                options => options.WithOrigins("https://localhost:44329").AllowAnyMethod()
+            );
 
             app.UseHttpsRedirection();
 

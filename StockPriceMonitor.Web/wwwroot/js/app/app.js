@@ -1,1 +1,1 @@
-﻿var stockApp = angular.module("stockModule", ['ngMaterial']);
+﻿var stockApp = angular.module("StockModule", ['ngMaterial']);

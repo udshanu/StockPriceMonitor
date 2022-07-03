@@ -34,6 +34,7 @@ namespace StockPriceMonitor.Api.Controllers
                 var priceSourceList = _priceSourceRepo.GetAllPriceSources();
 
                 return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));
+                //return JsonResult(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
