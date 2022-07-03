@@ -36,6 +36,7 @@ namespace StockPriceMonitorApi
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPriceSourceRepository, PriceSourceRepository>();
             services.AddScoped<ITickerRepository, TickerRepository>();
+            services.AddScoped<IStockPriceRepository, StockPriceRepository>();
 
 
             services.AddControllers();

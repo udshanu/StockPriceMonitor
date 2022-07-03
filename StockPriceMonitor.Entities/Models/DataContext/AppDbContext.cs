@@ -11,5 +11,6 @@ namespace StockPriceMonitor.Entities.Models.DataContext
 
         public DbSet<PriceSource> PriceSources { get; set; }
         public DbSet<Ticker> Tickers { get; set; }
+        public DbSet<StockPrice> StockPrices { get; set; }
     }
 }

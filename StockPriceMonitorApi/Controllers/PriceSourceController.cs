@@ -31,8 +31,6 @@ namespace StockPriceMonitor.Api.Controllers
         {
             try
             {
-                Console.WriteLine("--> Geting all the price sources...");
-
                 var priceSourceList = _priceSourceRepo.GetAllPriceSources();
 
                 return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));

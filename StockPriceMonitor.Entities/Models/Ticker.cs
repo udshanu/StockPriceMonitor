@@ -1,4 +1,5 @@
 ﻿using StockPriceMonitor.Entities.Models.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +17,6 @@ namespace StockPriceMonitor.Entities.Models
 
         [ForeignKey("PriceSourceId")]
         public virtual PriceSource PriceSource { get; set; }
+        public ICollection<StockPrice> StockPrices { get; set; }
     }
 }

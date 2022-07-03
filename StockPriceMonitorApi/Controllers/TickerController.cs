@@ -31,8 +31,6 @@ namespace StockPriceMonitor.Api.Controllers
         {
             try
             {
-                Console.WriteLine("--> Geting all the tickers...");
-
                 var tickerList = _tickerRepo.GetAllTickers();
 
                 return Ok(_mapper.Map<IEnumerable<TickerResponseDTO>>(tickerList));
