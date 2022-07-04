@@ -1,4 +1,5 @@
-﻿using StockPriceMonitor.Entities.Models;
+﻿using StockPriceMonitor.Common.DataTransferObjects;
+using StockPriceMonitor.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,10 @@ namespace StockPriceMonitor.Controllers.Tests.MockData
                 new PriceSource() { Id = 7, Name = "Source 7", IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(7), UpdatedBy = "System 2", DateLastUpdated = DateTime.Now.AddMinutes(8) }
             };
         }
-
         public static List<PriceSource> GetZeroPriceSources()
         {
             return new List<PriceSource>();
         }
-
         public static List<PriceSource> GetAllPriceSourcesIncludingTickers()
         {
             var instance = new List<Ticker>();
@@ -66,10 +65,16 @@ namespace StockPriceMonitor.Controllers.Tests.MockData
         {
             return new List<PriceSource>();
         }
-
         public static List<PriceSource> GetNullPriceSourcesIncludingTickers()
         {
             return null;
+        }
+        public static PriceSourceRequestDTO GetRequestedPriceSource()
+        {
+            return new PriceSourceRequestDTO
+            {
+                Name = "Source 8",
+            };
         }
 
     }

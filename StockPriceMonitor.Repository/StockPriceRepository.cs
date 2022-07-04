@@ -39,22 +39,6 @@ namespace StockPriceMonitor.Repository
             }
         }
 
-        ///// <summary>
-        ///// Get all stock prices
-        ///// </summary>
-        ///// <returns>List of stock prices</returns>
-        //public IEnumerable<StockPrice> GetAllStockPrices()
-        //{
-        //    try
-        //    {
-        //        return _context.StockPrices.ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException($"Exception on GetAllStockPrices functionality. {ex.Message}");
-        //    }
-        //}
-
         /// <summary>
         /// Get last five stock prices
         /// </summary>

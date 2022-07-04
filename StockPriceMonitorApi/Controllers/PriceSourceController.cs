@@ -26,27 +26,6 @@ namespace StockPriceMonitor.Api.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<PriceSourceResponseDTO>> GetAllPriceSources()
-        //{
-        //    try
-        //    {
-        //        //var priceSourceList = _priceSourceRepo.GetAllPriceSources();
-        //        var priceSourceList = _priceSourceRepo.GetAllPriceSources().OrderBy(x => x.Name).ToList();
-
-        //        if (priceSourceList.Count == 0)
-        //        {
-        //            return NoContent();
-        //        }
-
-        //        return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException($"Exception on GetAllPriceSources functionality in the PriceSourceController. {ex.Message}");
-        //    }
-        //}
-
         [Route("GetAllPriceSourcesAndAllRelatedTickers")]
         [HttpGet]
         public ActionResult GetAllPriceSourcesAndAllRelatedTickers()
@@ -116,9 +95,11 @@ namespace StockPriceMonitor.Api.Controllers
                 _priceSourceRepo.CreatePriceSource(priceSourceModel);
                 _unitOfWork.SaveChanges();
 
-                var priceSourceResponseDto = _mapper.Map<PriceSourceResponseDTO>(priceSourceModel);
+                return Ok();
 
-                return CreatedAtRoute(nameof(GetPriceSourceById), new { Id = priceSourceResponseDto.Id }, priceSourceResponseDto);
+                //var priceSourceResponseDto = _mapper.Map<PriceSourceResponseDTO>(priceSourceModel);
+
+                //return CreatedAtRoute(nameof(GetPriceSourceById), new { Id = priceSourceResponseDto.Id }, priceSourceResponseDto);
             }
             catch (Exception ex)
             {

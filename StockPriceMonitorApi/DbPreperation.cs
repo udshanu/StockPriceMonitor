@@ -33,10 +33,6 @@ namespace StockPriceMonitor.Api
 
                 context.SaveChanges();
             }
-            else
-            {
-                //Console.WriteLine("--> Already have price source data.");
-            }
 
             if (!context.Tickers.Any())
             {
@@ -53,10 +49,6 @@ namespace StockPriceMonitor.Api
                     );
 
                 context.SaveChanges();
-            }
-            else
-            {
-                //Console.WriteLine("--> Already have ticker data.");
             }
 
             if (!context.StockPrices.Any())
@@ -87,10 +79,6 @@ namespace StockPriceMonitor.Api
                     );
 
                 context.SaveChanges();
-            }
-            else
-            {
-                //Console.WriteLine("--> Already have ticker data.");
             }
         }
     }

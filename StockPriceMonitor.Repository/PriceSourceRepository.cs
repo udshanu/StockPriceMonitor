@@ -54,22 +54,6 @@ namespace StockPriceMonitor.Repository
             }
         }
 
-        ///// <summary>
-        ///// Get all price sources
-        ///// </summary>
-        ///// <returns>List of price sources</returns>
-        //public IEnumerable<PriceSource> GetAllPriceSources()
-        //{
-        //    try
-        //    {
-        //        return _context.PriceSources.ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException($"Exception on GetAllPriceSources functionality. {ex.Message}");
-        //    }
-        //}
-
         /// <summary>
         /// Get price source using id.
         /// </summary>

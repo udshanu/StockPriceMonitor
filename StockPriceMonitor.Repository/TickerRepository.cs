@@ -39,22 +39,6 @@ namespace StockPriceMonitor.Repository
             }
         }
 
-        ///// <summary>
-        ///// Get all tickers
-        ///// </summary>
-        ///// <returns>List of tickers</returns>
-        //public IEnumerable<Ticker> GetAllTickers()
-        //{
-        //    try
-        //    {
-        //        return _context.Tickers.ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException($"Exception on GetAllTickers functionality. {ex.Message}");
-        //    }
-        //}
-
         /// <summary>
         /// Get ticker by id
         /// </summary>

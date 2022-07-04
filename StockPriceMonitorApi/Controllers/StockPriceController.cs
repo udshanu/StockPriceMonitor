@@ -26,21 +26,6 @@ namespace StockPriceMonitor.Api.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        //public ActionResult<IEnumerable<StockPriceResponseDTO>> GetAllStockPrices()
-        //{
-        //    try
-        //    {
-        //        var stockPriceList = _stockPriceRepo.GetAllStockPrices();
-
-        //        return Ok(_mapper.Map<IEnumerable<StockPriceResponseDTO>>(stockPriceList));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApplicationException($"Exception on GetAllStockPrices functionality in the StockPriceController. {ex.Message}");
-        //    }
-        //}
-
         [HttpGet("{id}", Name = "GetStockPriceById")]
         public ActionResult<StockPriceResponseDTO> GetStockPriceById(int id)
         {

@@ -5,7 +5,6 @@ namespace StockPriceMonitor.Repository.Interfaces
 {
     public interface ITickerRepository
     {
-        //IEnumerable<Ticker> GetAllTickers();
         Ticker GetTickerById(int Id);
         void CreateTicker(Ticker ticker);
     }
