@@ -43,8 +43,8 @@ namespace StockPriceMonitor.Api
                 var currentDate = DateTime.Now;
 
                 context.Tickers.AddRange(
-                        new Ticker() { Id = 1, TickerName = "Ticker 1", PriceSourceId = 4, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(1) },
-                        new Ticker() { Id = 2, TickerName = "Ticker 2", PriceSourceId = 4, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(2) },
+                        new Ticker() { Id = 1, TickerName = "Ticker 1", PriceSourceId = 1, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(1) },
+                        new Ticker() { Id = 2, TickerName = "Ticker 2", PriceSourceId = 1, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(2) },
                         new Ticker() { Id = 3, TickerName = "Ticker 3", PriceSourceId = 5, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(3) },
                         new Ticker() { Id = 4, TickerName = "Ticker 4", PriceSourceId = 5, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(4) },
                         new Ticker() { Id = 5, TickerName = "Ticker 5", PriceSourceId = 6, IsDeleted = false, CreatedBy = "System", DateCreated = DateTime.Now.AddMinutes(5) },

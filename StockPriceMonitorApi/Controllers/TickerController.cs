@@ -31,7 +31,7 @@ namespace StockPriceMonitor.Api.Controllers
         {
             try
             {
-                var tickerList = _tickerRepo.GetAllTickers();
+                var tickerList = _tickerRepo.GetAllTickers().OrderBy(x => x.TickerName);
 
                 return Ok(_mapper.Map<IEnumerable<TickerResponseDTO>>(tickerList));
             }

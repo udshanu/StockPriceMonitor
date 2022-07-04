@@ -1,23 +1,23 @@
 ﻿@page
 
 <div class="text-center" ng-app="StockModule">
-    <div ng-controller="StockController" ng-cloak ng-init="GetAllPriceSources()">
+    <div ng-controller="StockController" ng-cloak ng-init="InitialConfigurations()">
         <h1 class="display-4">Stock Price Monitor</h1>
 
         <div style="align-content:center">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2" style="max-width: 150px; padding-top: 8px; text-align: right">
+                        <div class="row center">
+                            <div class="col-md-6 label_wrapper">
                                 <label for="priceSource" class="control-label">
                                     Price Source:
                                 </label>
                             </div>
-                            <div class="col-md-4 abc">
+                            <div class="col-md-6 dropdown_menu">
                                 <md-input-container flex="50">
-                                    <md-select name="priceSource" ng-model="PriceSource">
-                                        <md-option ng-repeat="source in PriceSourceList" ng-value="{{source.Key}}">{{source.Value}}</md-option>
+                                    <md-select name="priceSource" ng-model="PriceSourceId">
+                                        <md-option ng-repeat="source in PriceSourceList" ng-value="{{source.id}}">{{source.name}}</md-option>
                                     </md-select>
 
                                 </md-input-container>
@@ -29,16 +29,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2" style="max-width:150px; padding-top:8px; text-align: right">
+                        <div class="row center">
+                            <div class="col-md-6 label_wrapper">
                                 <label for="ticker" class="control-label">
                                     Ticker:
                                 </label>
                             </div>
-                            <div class="col-md-4 abc">
+                            <div class="col-md-6 dropdown_menu">
                                 <md-input-container flex="50">
-                                    <md-select name="ticker" ng-model="Ticker">
-                                        <md-option ng-repeat="ticker in TickerList" ng-value="{{ticker.Key}}">{{ticker.Value}}</md-option>
+                                    <md-select name="ticker" ng-model="TickerId">
+                                        <md-option ng-repeat="ticker in TickerList" ng-value="{{ticker.id}}">{{ticker.tickerName}}</md-option>
                                     </md-select>
 
                                 </md-input-container>
@@ -59,50 +59,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*<tr ng-repeat="tableData in TableDataResult">
-                            <td>{{tableData.Time}}</td>
-                            <td>{{tableData.Price}}</td>
-                        </tr>*@
-                    <tr>
-                        <td>AAA</td>
-                        <td>BBB</td>
+                    <tr ng-repeat="tableData in TableDataResult">
+                        <td>{{tableData.dateTime}}</td>
+                        <td>{{tableData.price}}</td>
                     </tr>
                 </tbody>
             </table>
         </form>
     </div>
 </div>
-
-<style>
-    .table {
-        max-width: 500px;
-    }
-
-    .table_center {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .abc md-input-container {
-        width: 100%;
-        border: 1px solid #000;
-        border-radius: 6px;
-        margin: 0;
-        max-width: unset;
-    }
-
-    .table tr th {
-        text-align: center;
-    }
-
-    .table tr td:last-child {
-        text-align: right;
-    }
-
-    .table tr td:first-child {
-        text-align: left;
-    }
-</style>
 
 @section Scripts{
     <script src="~/js/app/services/stock.factory.js"></script>

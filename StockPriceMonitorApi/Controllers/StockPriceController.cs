@@ -85,15 +85,15 @@ namespace StockPriceMonitor.Api.Controllers
             }
         }
 
-        [HttpGet("GetLastFiveStockPrices/{tickerId}", Name = "GetLastFiveStockPrices")]
-        public ActionResult<IEnumerable<LastFiveStockPriceResponseDTO>> GetLastFiveStockPrices(int tickerId)
+        [HttpGet("GetLastFiveStockPrices/{id}", Name = "GetLastFiveStockPrices")]
+        public ActionResult<IEnumerable<LastFiveStockPriceResponseDTO>> GetLastFiveStockPrices(int id)
         {
             try
             {
-                var stockPriceList = _stockPriceRepo.GetLastFiveStockPrices(tickerId);
+                var stockPriceList = _stockPriceRepo.GetLastFiveStockPrices(id);
 
                 var formatedList = stockPriceList.Select(x => new LastFiveStockPriceResponseDTO { DateTime = (x.DateLastUpdated.HasValue ? x.DateLastUpdated.Value : x.DateCreated).ToString("yyyy-MM-dd HH:mm:ss"), Price = x.Price }).OrderByDescending(x => x.DateTime);
-                
+
                 return Ok(formatedList);
             }
             catch (Exception ex)

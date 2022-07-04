@@ -79,3 +79,44 @@ table tr th {
     padding: 5px 15px 5px 1px !important;
     margin: 0 0 10px;
 }
+
+.table {
+    max-width: 300px;
+}
+
+.table_center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+
+.dropdown_menu md-input-container {
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 6px;
+    margin: 0;
+    max-width: unset;
+}
+
+.table tr th {
+    text-align: center;
+}
+
+.table tr td:last-child {
+    text-align: center;
+}
+
+.table tr td:first-child {
+    text-align: center;
+}
+
+.label_wrapper {
+    max-width: 150px;
+    padding-top: 8px;
+    text-align: right
+}
