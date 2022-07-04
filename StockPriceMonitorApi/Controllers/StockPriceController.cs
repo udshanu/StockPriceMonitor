@@ -27,19 +27,19 @@ namespace StockPriceMonitor.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<StockPriceResponseDTO>> GetAllStockPrices()
-        {
-            try
-            {
-                var stockPriceList = _stockPriceRepo.GetAllStockPrices();
+        //public ActionResult<IEnumerable<StockPriceResponseDTO>> GetAllStockPrices()
+        //{
+        //    try
+        //    {
+        //        var stockPriceList = _stockPriceRepo.GetAllStockPrices();
 
-                return Ok(_mapper.Map<IEnumerable<StockPriceResponseDTO>>(stockPriceList));
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Exception on GetAllStockPrices functionality in the StockPriceController. {ex.Message}");
-            }
-        }
+        //        return Ok(_mapper.Map<IEnumerable<StockPriceResponseDTO>>(stockPriceList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ApplicationException($"Exception on GetAllStockPrices functionality in the StockPriceController. {ex.Message}");
+        //    }
+        //}
 
         [HttpGet("{id}", Name = "GetStockPriceById")]
         public ActionResult<StockPriceResponseDTO> GetStockPriceById(int id)
@@ -63,6 +63,7 @@ namespace StockPriceMonitor.Api.Controllers
             }
         }
 
+        [Route("CreateStockPrice")]
         [HttpPost]
         public ActionResult<StockPriceResponseDTO> CreateStockPrice(StockPriceRequestDTO stockPriceRequestDto)
         {
@@ -84,15 +85,15 @@ namespace StockPriceMonitor.Api.Controllers
                 throw new ApplicationException($"Exception on CreateStockPrice functionality in the StockPriceController. {ex.Message}");
             }
         }
-
-        [HttpGet("GetLastFiveStockPrices/{id}", Name = "GetLastFiveStockPrices")]
+        [Route("GetLastFiveStockPrices/{id}")]
+        [HttpGet()]
         public ActionResult<IEnumerable<LastFiveStockPriceResponseDTO>> GetLastFiveStockPrices(int id)
         {
             try
             {
                 var stockPriceList = _stockPriceRepo.GetLastFiveStockPrices(id);
 
-                var formatedList = stockPriceList.Select(x => new LastFiveStockPriceResponseDTO { DateTime = (x.DateLastUpdated.HasValue ? x.DateLastUpdated.Value : x.DateCreated).ToString("yyyy-MM-dd HH:mm:ss"), Price = x.Price }).OrderByDescending(x => x.DateTime);
+                var formatedList = stockPriceList.Select(x => new LastFiveStockPriceResponseDTO { DateTime = (x.DateLastUpdated.HasValue ? x.DateLastUpdated.Value : x.DateCreated).ToString("yyyy-MM-dd HH:mm:ss"), Price = x.Price.ToString("0.00") }).OrderByDescending(x => x.DateTime);
 
                 return Ok(formatedList);
             }

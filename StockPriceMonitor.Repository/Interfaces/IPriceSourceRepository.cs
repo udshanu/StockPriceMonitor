@@ -5,7 +5,7 @@ namespace StockPriceMonitor.Repository.Interfaces
 {
     public interface IPriceSourceRepository
     {
-        IEnumerable<PriceSource> GetAllPriceSources();
+        IEnumerable<PriceSource> GetAllPriceSourcesIncludingTickers();
         PriceSource GetPriceSourceById(int Id);
         void CreatePriceSource(PriceSource priceSource);
     }

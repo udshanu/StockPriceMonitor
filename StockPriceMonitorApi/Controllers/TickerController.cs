@@ -26,20 +26,19 @@ namespace StockPriceMonitor.Api.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<TickerResponseDTO>> GetAllTickers()
-        {
-            try
-            {
-                var tickerList = _tickerRepo.GetAllTickers().OrderBy(x => x.TickerName);
-
-                return Ok(_mapper.Map<IEnumerable<TickerResponseDTO>>(tickerList));
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Exception on GetAllTickers functionality in the TickerController. {ex.Message}");
-            }
-        }
+        //[HttpGet]
+        //public ActionResult<IEnumerable<TickerResponseDTO>> GetAllTickers()
+        //{
+        //    try
+        //    {
+        //        var tickerList = _tickerRepo.GetAllTickers().OrderBy(x => x.TickerName).ToList();
+        //        return Ok(_mapper.Map<IEnumerable<TickerResponseDTO>>(tickerList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ApplicationException($"Exception on GetAllTickers functionality in the TickerController. {ex.Message}");
+        //    }
+        //}
 
         [HttpGet("{id}", Name = "GetTickerById")]
         public ActionResult<TickerResponseDTO> GetTickerById(int id)

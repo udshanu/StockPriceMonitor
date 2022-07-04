@@ -26,20 +26,43 @@ namespace StockPriceMonitor.Api.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        //[HttpGet]
+        //public ActionResult<IEnumerable<PriceSourceResponseDTO>> GetAllPriceSources()
+        //{
+        //    try
+        //    {
+        //        var priceSourceList = _priceSourceRepo.GetAllPriceSources().OrderBy(x => x.Name).ToList();
+
+        //        return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new ApplicationException($"Exception on GetAllPriceSources functionality in the PriceSourceController. {ex.Message}");
+        //    }
+        //}
+
+        [Route("GetAllPriceSourcesAndAllRelatedTickers")]
         [HttpGet]
-        public ActionResult<IEnumerable<PriceSourceResponseDTO>> GetAllPriceSources()
+        public ActionResult GetAllPriceSourcesAndAllRelatedTickers()
         {
             try
             {
-                var priceSourceList = _priceSourceRepo.GetAllPriceSources().OrderBy(x => x.Name);
+                var priceSourceList = _priceSourceRepo.GetAllPriceSourcesIncludingTickers();
+                var filteredPriceSourceList = priceSourceList.Where(x => x.Tickers.Any()).OrderBy(x => x.Name).ToList();
+                var filteredTickerList = priceSourceList.SelectMany(x => x.Tickers).Distinct().OrderBy(x => x.TickerName).ToList();
 
-                return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));
+                var mappedPiceSourceResult = _mapper.Map<IEnumerable<PriceSourceResponseDTO>>(filteredPriceSourceList);
+                var mappedTickerResult = _mapper.Map<IEnumerable<TickerResponseDTO>>(filteredTickerList);
+
+                return Ok(new { PriceSourceList = mappedPiceSourceResult, TickerList = mappedTickerResult });
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Exception on GetAllPriceSources functionality in the PriceSourceController. {ex.Message}");
+                throw new ApplicationException($"Exception on GetAllPriceSourcesAndAllRelatedTickers functionality in the PriceSourceController. {ex.Message}");
             }
         }
+
+
 
         [HttpGet("{id}", Name = "GetPriceSourceById")]
         public ActionResult<PriceSourceResponseDTO> GetPriceSourceById(int id)
@@ -63,6 +86,7 @@ namespace StockPriceMonitor.Api.Controllers
             }
         }
 
+        [Route("CreatePriceSource")]
         [HttpPost]
         public ActionResult<PriceSourceResponseDTO> CreatePriceSource(PriceSourceRequestDTO priceSourceRequestDto)
         {

@@ -1,4 +1,5 @@
-﻿using StockPriceMonitor.Entities.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Entities.Models.DataContext;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
@@ -41,15 +42,15 @@ namespace StockPriceMonitor.Repository
         /// Get all price sources
         /// </summary>
         /// <returns>List of price sources</returns>
-        public IEnumerable<PriceSource> GetAllPriceSources()
+        public IEnumerable<PriceSource> GetAllPriceSourcesIncludingTickers()
         {
             try
             {
-                return _context.PriceSources.ToList();
+                return _context.PriceSources.Include(x => x.Tickers).ToList();
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Exception on GetAllPriceSources functionality. {ex.Message}");
+                throw new ApplicationException($"Exception on GetAllPriceSourcesIncludingTickers functionality. {ex.Message}");
             }
         }
 

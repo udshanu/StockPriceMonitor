@@ -5,7 +5,7 @@ namespace StockPriceMonitor.Repository.Interfaces
 {
     public interface IStockPriceRepository
     {
-        IEnumerable<StockPrice> GetAllStockPrices();
+        //IEnumerable<StockPrice> GetAllStockPrices();
         StockPrice GetStockPriceById(int Id);
         void CreateStockPrice(StockPrice stockPrice);
         IEnumerable<StockPrice> GetLastFiveStockPrices(int tickerId);

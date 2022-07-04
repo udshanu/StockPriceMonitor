@@ -11,6 +11,5 @@ namespace StockPriceMonitor.Common.DataTransferObjects
         public int Id { get; set; }
         public int TickerId { get; set; }
         public decimal Price { get; set; }
-        public DateTime DateTime { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page
 
 <div class="text-center" ng-app="StockModule">
-    <div ng-controller="StockController" ng-cloak ng-init="InitialConfigurations()">
+    <div ng-controller="StockController" ng-cloak ng-init="GetAllPriceSourcesAndAllRelatedTickers()">
         <h1 class="display-4">Stock Price Monitor</h1>
 
         <div style="align-content:center">
@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-md-6 dropdown_menu">
                                 <md-input-container flex="50">
-                                    <md-select name="priceSource" ng-model="PriceSourceId">
+                                    <md-select name="priceSource" ng-model="PriceSourceId" ng-change="GetSelectedTickerList(PriceSourceId)">
                                         <md-option ng-repeat="source in PriceSourceList" ng-value="{{source.id}}">{{source.name}}</md-option>
                                     </md-select>
 
@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-md-6 dropdown_menu">
                                 <md-input-container flex="50">
-                                    <md-select name="ticker" ng-model="TickerId">
+                                    <md-select name="ticker" ng-model="TickerId" ng-change="GetLastFiveStockPrices()">
                                         <md-option ng-repeat="ticker in TickerList" ng-value="{{ticker.id}}">{{ticker.tickerName}}</md-option>
                                     </md-select>
 
@@ -59,6 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr ng-if="TableDataResult.length == 0"><td colspan="2">No data available</td></tr>
                     <tr ng-repeat="tableData in TableDataResult">
                         <td>{{tableData.dateTime}}</td>
                         <td>{{tableData.price}}</td>
