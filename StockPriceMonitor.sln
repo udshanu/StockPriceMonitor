@@ -7,11 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Api", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Web", "StockPriceMonitor.Web\StockPriceMonitor.Web.csproj", "{1BE72297-F6F9-4F09-8602-B0E7D7539192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Entities", "StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj", "{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Entities", "StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj", "{CD1CA0AB-6ED4-46E4-988A-AEBAA73091FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Repository", "StockPriceMonitor.Repository\StockPriceMonitor.Repository.csproj", "{17627D92-A2BA-44CA-A814-C0565D743F8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Repository", "StockPriceMonitor.Repository\StockPriceMonitor.Repository.csproj", "{17627D92-A2BA-44CA-A814-C0565D743F8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Common", "StockPriceMonitor.Common\StockPriceMonitor.Common.csproj", "{0AA98DFD-656A-4A51-8B29-BCC4CB282666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPriceMonitor.Common", "StockPriceMonitor.Common\StockPriceMonitor.Common.csproj", "{0AA98DFD-656A-4A51-8B29-BCC4CB282666}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{978B0722-839F-46C0-A71B-96F9F6CC267D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XUnit", "XUnit", "{A286353C-6576-4AE4-A4C9-2137757F94DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPriceMonitor.Controllers.Tests", "StockPriceMonitor.Controllers.Tests\StockPriceMonitor.Controllers.Tests.csproj", "{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,17 @@ Global
 		{0AA98DFD-656A-4A51-8B29-BCC4CB282666}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA98DFD-656A-4A51-8B29-BCC4CB282666}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA98DFD-656A-4A51-8B29-BCC4CB282666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A286353C-6576-4AE4-A4C9-2137757F94DC} = {978B0722-839F-46C0-A71B-96F9F6CC267D}
+		{1A60D0C7-C920-4511-94B1-D8E4C4B2C3CA} = {A286353C-6576-4AE4-A4C9-2137757F94DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFCA9D6F-1A28-476F-88D4-B51050930E74}

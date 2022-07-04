@@ -31,7 +31,13 @@ namespace StockPriceMonitor.Api.Controllers
         //{
         //    try
         //    {
+        //        //var priceSourceList = _priceSourceRepo.GetAllPriceSources();
         //        var priceSourceList = _priceSourceRepo.GetAllPriceSources().OrderBy(x => x.Name).ToList();
+
+        //        if (priceSourceList.Count == 0)
+        //        {
+        //            return NoContent();
+        //        }
 
         //        return Ok(_mapper.Map<IEnumerable<PriceSourceResponseDTO>>(priceSourceList));
         //    }
@@ -48,6 +54,17 @@ namespace StockPriceMonitor.Api.Controllers
             try
             {
                 var priceSourceList = _priceSourceRepo.GetAllPriceSourcesIncludingTickers();
+
+                if (priceSourceList == null)
+                {
+                    return NotFound();
+                }
+
+                if (priceSourceList.Count() == 0)
+                {
+                    return NoContent();
+                }
+
                 var filteredPriceSourceList = priceSourceList.Where(x => x.Tickers.Any()).OrderBy(x => x.Name).ToList();
                 var filteredTickerList = priceSourceList.SelectMany(x => x.Tickers).Distinct().OrderBy(x => x.TickerName).ToList();
 
