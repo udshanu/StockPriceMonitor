@@ -11,7 +11,9 @@
     //    $scope.GetAllPriceSourcesAndAllRelatedTickers();
 
 
-    //    $scope.isInitialState = false;
+    //    //$scope.isInitialState = false;
+
+    //    //$scope.callToTimeout();
     //}
 
     //$scope.GetAllTickers = function () {
@@ -40,8 +42,6 @@
     //}
 
     $scope.GetAllPriceSourcesAndAllRelatedTickers = function () {
-
-        if ($scope.stop) return;
 
         StockControllerService.GetAllPriceSourcesAndAllRelatedTickers().then(function (response) {
             if (response.status == 200) {
@@ -83,5 +83,34 @@
 
         $timeout($scope.GetLastFiveStockPrices, 2000);
     }
+
+    //$scope.GetAllPriceSourcesAndAllRelatedTickersForUpdateTheList = function () {
+
+    //    //if ($scope.stop) return;
+
+    //    StockControllerService.GetAllPriceSourcesAndAllRelatedTickers().then(function (response) {
+    //        if (response.status == 200) {
+    //            $scope.PriceSourceList = response.data.priceSourceList;
+
+    //            $scope.AllTickerList = response.data.tickerList;
+    //        }
+    //        else {
+    //            console.log('Something went wrong!!!');
+    //        }
+    //    });
+
+    //    //$timeout($scope.GetAllPriceSourcesAndAllRelatedTickersForUpdateTheList, 3000);
+
+    //}
+
+    //$scope.callToTimeout = function () {
+
+    //    //if ($scope.isInitialState == false) {
+    //    $scope.GetLastFiveStockPrices();
+    //    $scope.GetAllPriceSourcesAndAllRelatedTickersForUpdateTheList();
+    //    //}
+
+    //    //$timeout($scope.callToTimeout, 2000);
+    //}
 
 });
