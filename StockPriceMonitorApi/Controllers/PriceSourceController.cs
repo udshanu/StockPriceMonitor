@@ -57,30 +57,6 @@ namespace StockPriceMonitor.Api.Controllers
             }
         }
 
-
-
-        [HttpGet("{id}", Name = "GetPriceSourceById")]
-        public ActionResult<PriceSourceResponseDTO> GetPriceSourceById(int id)
-        {
-            try
-            {
-                var priceSourceItem = _priceSourceRepo.GetPriceSourceById(id);
-
-                if (priceSourceItem != null)
-                {
-                    return Ok(_mapper.Map<PriceSourceResponseDTO>(priceSourceItem));
-                }
-
-                return NotFound();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new ApplicationException($"Exception on GetPriceSourceById functionality in the PriceSourceController. {ex.Message}");
-            }
-        }
-
         [Route("CreatePriceSource")]
         [HttpPost]
         public JsonResult CreatePriceSource(PriceSourceRequestDTO priceSourceRequestDto)
