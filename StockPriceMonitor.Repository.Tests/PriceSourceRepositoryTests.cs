@@ -29,7 +29,7 @@ namespace StockPriceMonitor.Repository.Tests
             _dbContext.PriceSources.AddRange(PriceSourceMockData.GetAllPriceSourcesIncludingTickers());
             _dbContext.SaveChanges();
 
-            var systemUnderTest = new PriceSourceRepository(_dbContext);
+            var systemUnderTest = new PriceSourceRepository(_dbContext, new UnitOfWork(new AppDbContext(new DbContextOptions<AppDbContext>())));
 
             //Act
             var result = systemUnderTest.GetAllPriceSourcesIncludingTickers();

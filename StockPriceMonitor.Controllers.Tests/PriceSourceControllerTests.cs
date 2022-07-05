@@ -3,7 +3,10 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using Newtonsoft.Json;
 using StockPriceMonitor.Api.Controllers;
+using StockPriceMonitor.Api.Profiles;
+using StockPriceMonitor.Api.ResponseResultMessage;
 using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Controllers.Tests.MockData;
 using StockPriceMonitor.Entities.Models;
@@ -21,82 +24,129 @@ namespace StockPriceMonitor.Controllers.Tests
 {
     public class PriceSourceControllerTests
     {
+        private Mock<IPriceSourceRepository> _priceSourceRepo;
+        private Mock<IMapper> _mapperCommon;
+
+        public PriceSourceControllerTests()
+        {
+            _priceSourceRepo = new Mock<IPriceSourceRepository>();
+            _mapperCommon = new Mock<IMapper>();
+        }
+
+        #region GetAllPriceSourcesAndAllRelatedTickers
+
         [Fact]
-        public void GetAllPriceSourcesAndAllRelatedTickers_ShouldReturn200Status()
+        public void GetAllPriceSourcesAndAllRelatedTickers_Returning200StatusCode()
         {
             //Arrange
-            var priceSourceRepo = new Mock<IPriceSourceRepository>();
-            priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetAllPriceSourcesIncludingTickers());
+            _priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetAllPriceSourcesIncludingTickers());
 
-            var mapper = new Mock<IMapper>();
+            var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapperCommon.Object);
 
-            var systemUnderTest = new PriceSourceController(priceSourceRepo.Object, mapper.Object, new UnitOfWork(new AppDbContext(new DbContextOptions<AppDbContext>())));
 
-            ////Act
+            //Act
             var result = systemUnderTest.GetAllPriceSourcesAndAllRelatedTickers();
+            var modelInfo = result.Value as SuccessResponseMessage;
 
-            ////Assert
-            result.GetType().Should().Be(typeof(OkObjectResult));
-            (result as OkObjectResult).StatusCode.Should().Be(200);
+
+            //Assert
+            Assert.IsType<JsonResult>(result);
+            Assert.Equal(200, modelInfo.ResponseCode);
         }
 
         [Fact]
-        public void GetAllPriceSourcesAndAllRelatedTickers_NoContentResult()
+        public void GetAllPriceSourcesAndAllRelatedTickers_Returning200StatusCodeAndZeroDataCount()
         {
             //Arrange
-            var priceSourceRepo = new Mock<IPriceSourceRepository>();
-            priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetZeroPriceSourcesIncludingTickers());
+            _priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetZeroPriceSourcesIncludingTickers());
 
-            var mapper = new Mock<IMapper>();
+            var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapperCommon.Object);
 
-            var systemUnderTest = new PriceSourceController(priceSourceRepo.Object, mapper.Object, new UnitOfWork(new AppDbContext(new DbContextOptions<AppDbContext>())));
 
-            ////Act
+            //Act
             var result = systemUnderTest.GetAllPriceSourcesAndAllRelatedTickers();
+            var modelInfo = result.Value as SuccessResponseMessage;
 
-            ////Assert
-            result.GetType().Should().Be(typeof(NoContentResult));
-            (result as NoContentResult).StatusCode.Should().Be(204);
+
+            //Assert
+            Assert.IsType<JsonResult>(result);
+            Assert.Equal(200, modelInfo.ResponseCode);
+            Assert.Equal(PriceSourceMockData.GetZeroPriceSourcesIncludingTickers().Count(), modelInfo.Data);
         }
 
         [Fact]
-        public void GetAllPriceSourcesAndAllRelatedTickers_Null()
+        public void GetAllPriceSourcesAndAllRelatedTickers_ReturningNullReferenceException()
         {
             //Arrange
-            var priceSourceRepo = new Mock<IPriceSourceRepository>();
-            priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetNullPriceSourcesIncludingTickers());
+            _priceSourceRepo.Setup(x => x.GetAllPriceSourcesIncludingTickers()).Returns(PriceSourceMockData.GetNullPriceSourcesIncludingTickers());
 
-            var mapper = new Mock<IMapper>();
+            var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapperCommon.Object);
 
-            var systemUnderTest = new PriceSourceController(priceSourceRepo.Object, mapper.Object, new UnitOfWork(new AppDbContext(new DbContextOptions<AppDbContext>())));
 
-            ////Act
-            var result = systemUnderTest.GetAllPriceSourcesAndAllRelatedTickers();
+            //Act
+            var ex = Record.Exception(() => systemUnderTest.GetAllPriceSourcesAndAllRelatedTickers());
 
-            ////Assert
-            result.GetType().Should().Be(typeof(NotFoundResult));
-            (result as NotFoundResult).StatusCode.Should().Be(404);
+
+            //Assert
+            Assert.NotNull(ex);
+            Assert.IsType<ApplicationException>(ex);
+            Assert.Equal("Returned PriceSource list is null.", ex.Message);
         }
 
+        #endregion
+
+        #region CreatePriceSource
+
         [Fact]
-        public void CreatePriceSource_ShouldCallCreatePriceSourceOnce()
+        public void CreatePriceSource_ReturningSuccessMessageAnd200StatusCode()
         {
             //Arrange
-            var priceSourceRepo = new Mock<IPriceSourceRepository>();
-            var mapper = new Mock<IMapper>();
+            var mappingProfile = new PriceSourceProfile();
+            var config = new MapperConfiguration(mappingProfile);
+            var _mapper = new Mapper(config);
 
-            priceSourceRepo.Setup(x => x.CreatePriceSource(new PriceSource()));
+            _priceSourceRepo.Setup(x => x.CreatePriceSource(PriceSourceMockData.CreatePriceSource())).Returns(true);
 
             var requestedPriceSource = PriceSourceMockData.GetRequestedPriceSource();
 
-            var systemUnderTest = new PriceSourceController(priceSourceRepo.Object, mapper.Object, new UnitOfWork(new AppDbContext(new DbContextOptions<AppDbContext>())));
+            var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapper);
+
 
             //Act
             var result = systemUnderTest.CreatePriceSource(requestedPriceSource);
+            var modelInfo = result.Value as SuccessResponseMessage;
 
-            ////Assert
-            result.GetType().Should().Be(typeof(OkObjectResult));
-            (result.Result as OkObjectResult).StatusCode.Should().Be(200);
+
+            //Assert
+            Assert.IsType<JsonResult>(result);
+            Assert.Equal(200, modelInfo.ResponseCode);
+            Assert.Equal("Price source successfully created.", modelInfo.Message);
         }
+
+        [Fact]
+        public void CreatePriceSource_ReturningNullReferenceException()
+        {
+            //Arrange
+            var mappingProfile = new PriceSourceProfile();
+            var config = new MapperConfiguration(mappingProfile);
+            var _mapper = new Mapper(config);
+
+            _priceSourceRepo.Setup(x => x.CreatePriceSource(null)).Returns(false);
+
+            var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapper);
+
+
+            //Act
+            var ex = Record.Exception(() => systemUnderTest.CreatePriceSource(null));
+
+
+            //Assert
+            Assert.NotNull(ex);
+            Assert.IsType<ApplicationException>(ex);
+            Assert.Equal("PriceSourceRequestDTO object is null", ex.Message);
+        }
+
+        #endregion
+
     }
 }

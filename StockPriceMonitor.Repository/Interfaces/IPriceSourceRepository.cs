@@ -7,6 +7,6 @@ namespace StockPriceMonitor.Repository.Interfaces
     {
         IEnumerable<PriceSource> GetAllPriceSourcesIncludingTickers();
         PriceSource GetPriceSourceById(int Id);
-        void CreatePriceSource(PriceSource priceSource);
+        bool CreatePriceSource(PriceSource priceSource);
     }
 }

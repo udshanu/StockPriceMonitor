@@ -4,7 +4,8 @@ using StockPriceMonitor.Entities.Models;
 
 namespace StockPriceMonitor.Api.Profiles
 {
-    public class PriceSourceProfile : Profile
+    //public class PriceSourceProfile : Profile
+    public class PriceSourceProfile : MapperConfigurationExpression
     {
         public PriceSourceProfile()
         {

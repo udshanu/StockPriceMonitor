@@ -44,12 +44,12 @@
     $scope.GetAllPriceSourcesAndAllRelatedTickers = function () {
 
         StockControllerService.GetAllPriceSourcesAndAllRelatedTickers().then(function (response) {
-            if (response.status == 200) {
-                $scope.PriceSourceList = response.data.priceSourceList;
+            if (response.data.responseCode == 200) {
+                $scope.PriceSourceList = response.data.data.priceSourceList;
 
                 $scope.PriceSourceId = $scope.PriceSourceList[0].id;
 
-                $scope.AllTickerList = response.data.tickerList;
+                $scope.AllTickerList = response.data.data.tickerList;
 
                 $scope.GetSelectedTickerList();
             }

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StockPriceMonitor.Common\StockPriceMonitor.Common.csproj" />
     <ProjectReference Include="..\StockPriceMonitor.Entities\StockPriceMonitor.Entities.csproj" />
   </ItemGroup>
 

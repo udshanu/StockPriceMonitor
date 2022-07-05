@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockPriceMonitor.Api.ResponseResultMessage;
 using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Repository.Interfaces;
@@ -17,18 +18,16 @@ namespace StockPriceMonitor.Api.Controllers
     {
         private IPriceSourceRepository _priceSourceRepo;
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public PriceSourceController(IPriceSourceRepository priceSourceRepo, IMapper mapper, IUnitOfWork unitOfWork)
+        public PriceSourceController(IPriceSourceRepository priceSourceRepo, IMapper mapper)
         {
             _priceSourceRepo = priceSourceRepo;
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
         }
 
         [Route("GetAllPriceSourcesAndAllRelatedTickers")]
         [HttpGet]
-        public ActionResult GetAllPriceSourcesAndAllRelatedTickers()
+        public JsonResult GetAllPriceSourcesAndAllRelatedTickers()
         {
             try
             {
@@ -36,12 +35,12 @@ namespace StockPriceMonitor.Api.Controllers
 
                 if (priceSourceList == null)
                 {
-                    return NotFound();
+                    throw new NullReferenceException("Returned PriceSource list is null.");
                 }
 
                 if (priceSourceList.Count() == 0)
                 {
-                    return NoContent();
+                    return new JsonResult(new SuccessResponseMessage { Data = priceSourceList.Count() });
                 }
 
                 var filteredPriceSourceList = priceSourceList.Where(x => x.Tickers.Any()).OrderBy(x => x.Name).ToList();
@@ -50,11 +49,11 @@ namespace StockPriceMonitor.Api.Controllers
                 var mappedPiceSourceResult = _mapper.Map<IEnumerable<PriceSourceResponseDTO>>(filteredPriceSourceList);
                 var mappedTickerResult = _mapper.Map<IEnumerable<TickerResponseDTO>>(filteredTickerList);
 
-                return Ok(new { PriceSourceList = mappedPiceSourceResult, TickerList = mappedTickerResult });
+                return new JsonResult(new SuccessResponseMessage { Data = new { PriceSourceList = mappedPiceSourceResult, TickerList = mappedTickerResult } });
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Exception on GetAllPriceSourcesAndAllRelatedTickers functionality in the PriceSourceController. {ex.Message}");
+                throw new ApplicationException(ex.Message);
             }
         }
 
@@ -84,26 +83,28 @@ namespace StockPriceMonitor.Api.Controllers
 
         [Route("CreatePriceSource")]
         [HttpPost]
-        public ActionResult<PriceSourceResponseDTO> CreatePriceSource(PriceSourceRequestDTO priceSourceRequestDto)
+        public JsonResult CreatePriceSource(PriceSourceRequestDTO priceSourceRequestDto)
         {
             try
             {
+
+                if (priceSourceRequestDto == null)
+                {
+                    throw new NullReferenceException("PriceSourceRequestDTO object is null");
+                }
+
+
                 var priceSourceModel = _mapper.Map<PriceSource>(priceSourceRequestDto);
                 priceSourceModel.CreatedBy = "System";
                 priceSourceModel.DateCreated = DateTime.Now;
 
                 _priceSourceRepo.CreatePriceSource(priceSourceModel);
-                _unitOfWork.SaveChanges();
 
-                return Ok();
-
-                //var priceSourceResponseDto = _mapper.Map<PriceSourceResponseDTO>(priceSourceModel);
-
-                //return CreatedAtRoute(nameof(GetPriceSourceById), new { Id = priceSourceResponseDto.Id }, priceSourceResponseDto);
+                return new JsonResult(new SuccessResponseMessage { Message = "Price source successfully created." });
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Exception on CreatePriceSource functionality in the PriceSourceController. {ex.Message}");
+                throw new ApplicationException(ex.Message);
             }
         }
     }

@@ -73,9 +73,30 @@ namespace StockPriceMonitor.Controllers.Tests.MockData
         {
             return new PriceSourceRequestDTO
             {
+                Name = "Source 8"
+            };
+        }
+        public static PriceSourceRequestDTO GetRequestedPriceSourceWithoutData()
+        {
+            return new PriceSourceRequestDTO();
+        }
+        public static PriceSource CreatePriceSource()
+        {
+            return new PriceSource
+            {
                 Name = "Source 8",
+                CreatedBy = "System",
+                DateCreated = DateTime.Now
             };
         }
 
+        public static PriceSource CreatePriceSourceWithError()
+        {
+            return new PriceSource
+            {
+                CreatedBy = "System",
+                DateCreated = DateTime.Now
+            };
+        }
     }
 }

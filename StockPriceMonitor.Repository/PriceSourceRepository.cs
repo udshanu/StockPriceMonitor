@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Entities.Models.DataContext;
 using StockPriceMonitor.Repository.Interfaces;
@@ -11,26 +12,24 @@ namespace StockPriceMonitor.Repository
     public class PriceSourceRepository : IPriceSourceRepository
     {
         private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PriceSourceRepository(AppDbContext context)
+        public PriceSourceRepository(AppDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
         /// Create price source.
         /// </summary>
         /// <param name="priceSource">Price source information</param>
-        public void CreatePriceSource(PriceSource priceSource)
+        public bool CreatePriceSource(PriceSource priceSource)
         {
             try
             {
-                if (priceSource == null)
-                {
-                    throw new ArgumentNullException(nameof(priceSource));
-                }
-
                 _context.PriceSources.Add(priceSource);
+                return _unitOfWork.SaveChanges();
             }
             catch (Exception ex)
             {
