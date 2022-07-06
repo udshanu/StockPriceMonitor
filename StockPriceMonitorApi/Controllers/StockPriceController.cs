@@ -5,6 +5,7 @@ using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StockPriceMonitor.Api.Controllers
@@ -62,7 +63,8 @@ namespace StockPriceMonitor.Api.Controllers
 
                 if (stockPriceList.Count() == 0)
                 {
-                    return new JsonResult(new SuccessResponseMessage { Data = stockPriceList.Count() });
+                    //return new JsonResult(new SuccessResponseMessage { Data = stockPriceList.Count() });
+                    return new JsonResult(new SuccessResponseMessage { Data = new List<LastFiveStockPriceResponseDTO>() });
                 }
 
                 var formatedList = stockPriceList.Select(x => new LastFiveStockPriceResponseDTO { DateTime = (x.DateLastUpdated.HasValue ? x.DateLastUpdated.Value : x.DateCreated).ToString("yyyy-MM-dd HH:mm:ss"), Price = x.Price.ToString("0.00") }).OrderByDescending(x => x.DateTime).ToList();

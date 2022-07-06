@@ -39,7 +39,7 @@ namespace StockPriceMonitor.Api.Controllers
 
                 if (priceSourceList.Count() == 0)
                 {
-                    return new JsonResult(new SuccessResponseMessage { Data = priceSourceList.Count() });
+                    return new JsonResult(new SuccessResponseMessage { Data = new List<PriceSource>() });
                 }
 
                 var filteredPriceSourceList = priceSourceList.Where(x => x.Tickers.Any()).OrderBy(x => x.Name).ToList();

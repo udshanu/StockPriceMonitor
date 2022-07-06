@@ -63,7 +63,7 @@ namespace StockPriceMonitor.Controllers.Tests
             //Assert
             Assert.IsType<JsonResult>(result);
             Assert.Equal(200, modelInfo.ResponseCode);
-            Assert.Equal(StockPriceMockData.GetZeroLastFiveStockPrices().Count(), modelInfo.Data);
+            Assert.Equal(StockPriceMockData.GetZeroLastFiveStockPrices().Count(), modelInfo.Data.Count);
         }
 
         [Fact]

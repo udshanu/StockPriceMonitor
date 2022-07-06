@@ -35,6 +35,11 @@
 
         StockControllerService.GetLastFiveStockPrices($scope.TickerId).then(function (response) {
             if (response.data.responseCode == 200) {
+
+                if (response.data.data == 0) {
+
+                }
+
                 $scope.TableDataResult = response.data.data;
             }
             else {
