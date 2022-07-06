@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StockPriceMonitor.Api.Profiles
 {
-    public class StockPriceProfile : Profile
+    public class StockPriceProfile : MapperConfigurationExpression
     {
         public StockPriceProfile()
         {

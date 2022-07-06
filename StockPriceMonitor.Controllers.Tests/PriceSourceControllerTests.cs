@@ -131,8 +131,6 @@ namespace StockPriceMonitor.Controllers.Tests
             var config = new MapperConfiguration(mappingProfile);
             var _mapper = new Mapper(config);
 
-            _priceSourceRepo.Setup(x => x.CreatePriceSource(null)).Returns(false);
-
             var systemUnderTest = new PriceSourceController(_priceSourceRepo.Object, _mapper);
 
 

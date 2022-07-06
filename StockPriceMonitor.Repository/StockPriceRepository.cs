@@ -12,26 +12,24 @@ namespace StockPriceMonitor.Repository
     public class StockPriceRepository : IStockPriceRepository
     {
         private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public StockPriceRepository(AppDbContext context)
+        public StockPriceRepository(AppDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
         /// Create stock price
         /// </summary>
         /// <param name="stockPrice">Stock price information</param>
-        public void CreateStockPrice(StockPrice stockPrice)
+        public bool CreateStockPrice(StockPrice stockPrice)
         {
             try
             {
-                if (stockPrice == null)
-                {
-                    throw new ArgumentNullException(nameof(stockPrice));
-                }
-
                 _context.StockPrices.Add(stockPrice);
+                return _unitOfWork.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -53,23 +51,6 @@ namespace StockPriceMonitor.Repository
             catch (Exception ex)
             {
                 throw new ApplicationException($"Exception on GetLastFiveStockPrices functionality. {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Get stock price using id
-        /// </summary>
-        /// <param name="Id">Stock price id</param>
-        /// <returns>Stock price object</returns>
-        public StockPrice GetStockPriceById(int Id)
-        {
-            try
-            {
-                return _context.StockPrices.FirstOrDefault(x => x.Id == Id);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Exception on GetStockPriceById functionality. {ex.Message}");
             }
         }
     }

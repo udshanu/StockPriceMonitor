@@ -34,11 +34,11 @@
         if ($scope.stop) return;
 
         StockControllerService.GetLastFiveStockPrices($scope.TickerId).then(function (response) {
-            if (response.status == 200) {
-                $scope.TableDataResult = response.data;
+            if (response.data.responseCode == 200) {
+                $scope.TableDataResult = response.data.data;
             }
             else {
-
+                console.log('Something went wrong!!!');
             }
         });
 
