@@ -8,4 +8,5 @@
 4. Clean and build the project.
 5. Setup both "StockPriceMonitor.Api" and "StockPriceMonitor.Web" as startup projects.
 6. Run the project.
+7. Use "Swagger UI" to generate new price sources.
 
