@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockPriceMonitor.Api.ResponseResultMessage;
 using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockPriceMonitor.Api.Controllers
 {
@@ -17,56 +14,34 @@ namespace StockPriceMonitor.Api.Controllers
     {
         private ITickerRepository _tickerRepo;
         private readonly IMapper _mapper;
-        private IUnitOfWork _unitOfWork;
 
-        public TickerController(ITickerRepository tickerRepo, IMapper mapper, IUnitOfWork unitOfWork)
+        public TickerController(ITickerRepository tickerRepo, IMapper mapper)
         {
             _tickerRepo = tickerRepo;
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
-        [HttpGet("{id}", Name = "GetTickerById")]
-        public ActionResult<TickerResponseDTO> GetTickerById(int id)
-        {
-            try
-            {
-                var tickerItem = _tickerRepo.GetTickerById(id);
-
-                if (tickerItem != null)
-                {
-                    return Ok(_mapper.Map<TickerResponseDTO>(tickerItem));
-                }
-
-                return NotFound();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new ApplicationException($"Exception on GetTickerById functionality in the TickerController. {ex.Message}");
-            }
         }
 
         [HttpPost]
-        public ActionResult<TickerResponseDTO> CreateTicker(TickerRequestDTO tickerRequestDto)
+        public JsonResult CreateTicker(TickerRequestDTO tickerRequestDto)
         {
             try
             {
+                if (tickerRequestDto == null)
+                {
+                    throw new NullReferenceException("TickerRequestDTO object is null");
+                }
+
                 var tickerModel = _mapper.Map<Ticker>(tickerRequestDto);
                 tickerModel.CreatedBy = "System";
                 tickerModel.DateCreated = DateTime.Now;
 
                 _tickerRepo.CreateTicker(tickerModel);
-                _unitOfWork.SaveChanges();
 
-                var tickerResponseDto = _mapper.Map<TickerResponseDTO>(tickerModel);
-
-                return CreatedAtRoute(nameof(GetTickerById), new { Id = tickerResponseDto.Id }, tickerResponseDto);
+                return new JsonResult(new SuccessResponseMessage { Message = "Tickers successfully created." });
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Exception on CreateTicker functionality in the TickerController. {ex.Message}");
+                throw new ApplicationException(ex.Message);
             }
         }
     }

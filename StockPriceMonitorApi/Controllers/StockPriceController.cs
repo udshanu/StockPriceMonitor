@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockPriceMonitor.Api.ResponseResultMessage;
 using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockPriceMonitor.Api.Controllers
 {

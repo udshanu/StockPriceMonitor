@@ -1,23 +1,13 @@
 ﻿using AutoMapper;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
-using Newtonsoft.Json;
 using StockPriceMonitor.Api.Controllers;
 using StockPriceMonitor.Api.Profiles;
 using StockPriceMonitor.Api.ResponseResultMessage;
-using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Controllers.Tests.MockData;
-using StockPriceMonitor.Entities.Models;
-using StockPriceMonitor.Entities.Models.DataContext;
-using StockPriceMonitor.Repository;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace StockPriceMonitor.Controllers.Tests

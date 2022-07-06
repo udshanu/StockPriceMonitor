@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StockPriceMonitor.Common.DataTransferObjects;
 using StockPriceMonitor.Entities.Models;
 using StockPriceMonitor.Entities.Models.DataContext;
 using StockPriceMonitor.Repository.Interfaces;
@@ -52,24 +51,5 @@ namespace StockPriceMonitor.Repository
                 throw new ApplicationException($"Exception on GetAllPriceSourcesIncludingTickers functionality. {ex.Message}");
             }
         }
-
-        /// <summary>
-        /// Get price source using id.
-        /// </summary>
-        /// <param name="Id">Price source id</param>
-        /// <returns>Price source object</returns>
-        public PriceSource GetPriceSourceById(int Id)
-        {
-            try
-            {
-                return _context.PriceSources.FirstOrDefault(x => x.Id == Id);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Exception on GetPriceSourceById functionality. {ex.Message}");
-            }
-        }
-
-
     }
 }

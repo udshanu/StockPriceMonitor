@@ -2,57 +2,35 @@
 using StockPriceMonitor.Entities.Models.DataContext;
 using StockPriceMonitor.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockPriceMonitor.Repository
 {
     public class TickerRepository : ITickerRepository
     {
         private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TickerRepository(AppDbContext context)
+        public TickerRepository(AppDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
         /// Create ticker.
         /// </summary>
         /// <param name="ticker">Ticker information</param>
-        public void CreateTicker(Ticker ticker)
+        /// <returns>boolean value</returns>
+        public bool CreateTicker(Ticker ticker)
         {
             try
             {
-                if (ticker == null)
-                {
-                    throw new ArgumentNullException(nameof(ticker));
-                }
-
                 _context.Tickers.Add(ticker);
+                return _unitOfWork.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw new ApplicationException($"Exception on CreateTicker functionality. {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Get ticker by id
-        /// </summary>
-        /// <param name="Id">Ticker id</param>
-        /// <returns>Ticker object</returns>
-        public Ticker GetTickerById(int Id)
-        {
-            try
-            {
-                return _context.Tickers.FirstOrDefault(x => x.Id == Id);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Exception on GetTickerById functionality. {ex.Message}");
             }
         }
     }
